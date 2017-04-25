@@ -13,13 +13,15 @@
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
+
+        <script src="env.js"></script>
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/socket.io.js"></script>
 
         <script>
 
-        var socket = null;
+        let socket = null;
 
         let toggleClass = (class_element, class_add, class_remove) => {
 
@@ -27,40 +29,19 @@
             $(class_element).addClass(class_add);
         };
 
+        let joinRoom = (room) => {
+
+            return socket.emit("joinRoom", { room });
+        };
+
+        let getRooms = () => {
+
+            return socket.emit("getRooms", {});
+        };
+
         $(document).ready( () => {
 
-            // socket.on("emiter", (data) => { return boby_function });
-
-            socket = io.connect("http://localhost:3001");
-
-            socket.on('connect', function (client) {
-
-                toggleClass('.status', 'alert-success', 'alert-danger');
-                $(".status span").text("Online");
-                return;
-            });
-
-            socket.on('disconnect', function () {
-
-                toggleClass('.status', 'alert-danger', 'alert-success');
-                $(".status span").text("Offline");
-                return;
-            });
-
-            let id = socket.id;
-
-            socket.on(id, (attributes) => {
-
-                console.log({ socket_id: socket.id });
-                return console.log({ id: attributes });
-            });
-
-            socket.on("log", (attributes) => {
-
-                return console.log({ log: attributes });
-            });
-
-            return;
+            initSocket(SOCKET_CONN);
         });
 
         </script>
@@ -74,6 +55,7 @@
         <!-- Add your site or application content here -->
         <p class="title alert alert-success text-center my-1 mw-100">This is Socket Online.</p>
         <p class="status alert alert-danger text-center my-1 mw-100">Status Socket - <span>Offline</span>.</p>
+        <p class="message alert alert-info text-center my-1 mw-100"><span></span></p>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
