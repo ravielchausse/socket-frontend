@@ -29,9 +29,23 @@
 
         $(document).ready( () => {
 
+            // socket.on("emiter", (data) => { return boby_function });
+
             socket = io.connect("http://localhost:3001");
 
-            // socket.on("emiter", (data) => { return boby_function });
+            socket.on('connect', function (client) {
+
+                toggleClass('.status', 'alert-success', 'alert-danger');
+                $(".status span").text("Online");
+                return;
+            });
+
+            socket.on('disconnect', function () {
+
+                toggleClass('.status', 'alert-danger', 'alert-success');
+                $(".status span").text("Offline");
+                return;
+            });
 
             let id = socket.id;
 
@@ -43,19 +57,8 @@
 
             socket.on("log", (attributes) => {
 
-                if (attributes === "status") {
-
-                    toggleClass('.status', 'alert-success', 'alert-danger');
-                    $(".status span").text("Online");
-                }
-
                 return console.log({ log: attributes });
             });
-
-            toggleClass('.status', 'alert-danger', 'alert-success');
-            $(".status span").text("Offline");
-
-            socket.emit("log", "status");
 
             return;
         });
@@ -70,7 +73,7 @@
 
         <!-- Add your site or application content here -->
         <p class="title alert alert-success text-center my-1 mw-100">This is Socket Online.</p>
-        <p class="status alert alert-success text-center my-1 mw-100">Status Socket - <span>Online</span>.</p>
+        <p class="status alert alert-danger text-center my-1 mw-100">Status Socket - <span>Offline</span>.</p>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>
