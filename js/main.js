@@ -8,7 +8,7 @@ let toggleClass = (class_element, class_add, class_remove) => {
 
 let joinRoom = (room) => {
 
-    return socket.emit("joinRoom", { room });
+    return socket.emit("joinRoom", room);
 };
 
 let getRooms = () => {
@@ -67,6 +67,11 @@ let initSocket = (conn) => {
     socket.on("emitToRooms", (message) => {
 
         return console.log({ message });
+    });
+
+    socket.on("geral", (message) => {
+
+        return $(".geral span").text(message);
     });
 
     return;

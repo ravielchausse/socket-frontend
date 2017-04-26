@@ -29,7 +29,29 @@
             $('#btnJoinRoom').click( (evt) => {
 
                 evt.preventDefault();
-                return joinRoom($('#txtJoinRoom').val());
+
+                let txtJoinRoom = $('#txtJoinRoom');
+
+                joinRoom(txtJoinRoom.val());
+
+                txtJoinRoom.val("");
+
+                return;
+            });
+
+            $('#btnMessageRoom').click( (evt) => {
+
+                evt.preventDefault();
+
+                let txtRoomName = $('#txtRoomName');
+                let txtMessageRoom = $('#txtMessageRoom');
+
+                emitToRooms(txtRoomName.val(), txtMessageRoom.val());
+
+                txtRoomName.val("");
+                txtMessageRoom.val("");
+
+                return;
             });
         });
 
@@ -47,7 +69,12 @@
             <!-- Add your site or application content here -->
             <p class="title alert alert-success text-center my-1 mw-100">This is Socket Online.</p>
             <p class="status alert alert-danger text-center my-1 mw-100">Status Socket - <span>Offline</span>.</p>
-            <p class="message alert alert-info text-center my-1 mw-100"><span></span></p>
+
+            <hr>
+
+            <p class="message alert text-left my-1 mw-100"><strong>Message:</strong> <span></span></p>
+
+            <hr>
 
             <form class="form-inline my-1 mw-100">
 
@@ -68,7 +95,9 @@
                 <button type="submit" class="btn btn-primary" id="btnJoinRoom">Confirm Join Room</button>
             </form>
 
-            <form>
+            <hr>
+
+            <form class="my-1">
 
                 <div class="form-group">
 
@@ -86,6 +115,12 @@
 
                 <button type="submit" class="btn btn-primary" id="btnMessageRoom">Confirm Message to Room</button>
             </form>
+
+            <hr>
+
+            <p class="geral alert text-left my-1 mw-100"><strong>Geral:</strong> <span></span></p>
+
+            <hr>
         </div>
 
         <script src="js/plugins.js"></script>
