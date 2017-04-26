@@ -15,47 +15,78 @@
         <link rel="stylesheet" href="css/vendor/bootstrap.min.css">
 
         <script src="env.js"></script>
+
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/socket.io.js"></script>
 
         <script>
 
-        let socket = null;
-
-        let toggleClass = (class_element, class_add, class_remove) => {
-
-            $(class_element).removeClass(class_remove);
-            $(class_element).addClass(class_add);
-        };
-
-        let joinRoom = (room) => {
-
-            return socket.emit("joinRoom", { room });
-        };
-
-        let getRooms = () => {
-
-            return socket.emit("getRooms", {});
-        };
-
         $(document).ready( () => {
 
             initSocket(SOCKET_CONN);
+
+            $('#btnJoinRoom').click( (evt) => {
+
+                evt.preventDefault();
+                return joinRoom($('#txtJoinRoom').val());
+            });
         });
 
         </script>
 
     </head>
     <body>
-        <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
 
-        <!-- Add your site or application content here -->
-        <p class="title alert alert-success text-center my-1 mw-100">This is Socket Online.</p>
-        <p class="status alert alert-danger text-center my-1 mw-100">Status Socket - <span>Offline</span>.</p>
-        <p class="message alert alert-info text-center my-1 mw-100"><span></span></p>
+        <div class="container">
+
+            <!--[if lt IE 8]>
+                <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <![endif]-->
+
+            <!-- Add your site or application content here -->
+            <p class="title alert alert-success text-center my-1 mw-100">This is Socket Online.</p>
+            <p class="status alert alert-danger text-center my-1 mw-100">Status Socket - <span>Offline</span>.</p>
+            <p class="message alert alert-info text-center my-1 mw-100"><span></span></p>
+
+            <form class="form-inline my-1 mw-100">
+
+                <div class="form-group">
+
+                <label class="sr-only">Rooms</label>
+
+                    <p class="form-control-static">Join Room the of Name: </p>
+                </div>
+
+                <div class="form-group mx-sm-3">
+
+                    <label for="joinRoom" class="sr-only">Password</label>
+
+                    <input type="text" class="form-control" id="txtJoinRoom" placeholder="Room Name">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="btnJoinRoom">Confirm Join Room</button>
+            </form>
+
+            <form>
+
+                <div class="form-group">
+
+                    <label for="txtRoomName">Room Name</label>
+
+                    <input type="text" class="form-control" id="txtRoomName" placeholder="Room Name">
+                </div>
+
+                <div class="form-group">
+
+                    <label for="txtMessageRoom">Message to Room</label>
+
+                    <input type="text" class="form-control" id="txtMessageRoom" placeholder="Message to Room">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="btnMessageRoom">Confirm Message to Room</button>
+            </form>
+        </div>
 
         <script src="js/plugins.js"></script>
         <script src="js/main.js"></script>

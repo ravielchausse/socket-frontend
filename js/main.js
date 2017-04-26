@@ -1,3 +1,26 @@
+let socket = null;
+
+let toggleClass = (class_element, class_add, class_remove) => {
+
+    $(class_element).removeClass(class_remove);
+    $(class_element).addClass(class_add);
+};
+
+let joinRoom = (room) => {
+
+    return socket.emit("joinRoom", { room });
+};
+
+let getRooms = () => {
+
+    return socket.emit("getRooms", {});
+};
+
+let emitToRooms = (rooms, message) => {
+
+    return socket.emit("emitToRooms", { rooms, message });
+};
+
 let initSocket = (conn) => {
 
     // socket.on("emiter", (data) => { return boby_function });
@@ -39,6 +62,11 @@ let initSocket = (conn) => {
     socket.on("setRooms", (rooms) => {
 
         return console.log({ rooms });
+    });
+
+    socket.on("emitToRooms", (message) => {
+
+        return console.log({ message });
     });
 
     return;
